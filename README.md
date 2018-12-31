@@ -1,5 +1,7 @@
 # ML with Missing Data
 
+[![Known Vulnerabilities](http://snyk.io/test/github/mramshaw/ML_with_Missing_Data/badge.svg?style=plastic&targetFile=requirements.txt)](http://snyk.io/test/github/mramshaw/ML_with_Missing_Data?style=plastic&targetFile=requirements.txt)
+
 How to handle missing or incomplete data
 
 ## Motivation
@@ -216,6 +218,11 @@ mean
     http://pandas.pydata.org/pandas-docs/stable/generated/pandas.DataFrame.mean.html
 
 [Note that the default value for __skipna__ is ___True___.]
+
+## To Do
+
+- [x] Add a Snyk.io vulnerability scan badge
+- [ ] Finish tutorial
 
 ## Credits
 
