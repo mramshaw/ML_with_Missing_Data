@@ -18,9 +18,9 @@ exercise, I make sure to carefully examine the structure of the data first!
 
 ## Data
 
-we will use the [Pima Indians Diabetes dataset](http://archive.ics.uci.edu/ml/datasets/Pima+Indians+Diabetes).
+We will use the [Pima Indians Diabetes dataset](http://archive.ics.uci.edu/ml/datasets/Pima+Indians+Diabetes).
 
-However, as it is no longer available, we will use the author's
+However, as it no longer seems to be available, we will use the author's
 [version](http://raw.githubusercontent.com/jbrownlee/Datasets/master/pima-indians-diabetes.data.csv).
 
 This data is known to have missing values. It consists of:
@@ -188,7 +188,8 @@ max    199.000000  122.000000   99.000000  846.000000   67.100000
 $
 ```
 
-Only the distributions have changed:
+The means for columns 3 and 4 are different, but otherwise it's mainly the
+ distributions that have shifted (as the zero values have been adjusted):
 
 ![Column 1](images/Column_1.png)
 
@@ -218,6 +219,6 @@ mean
 
 ## Credits
 
-I followed this excellent tutorial:
+I (mainly) followed this excellent tutorial:
 
     http://machinelearningmastery.com/handle-missing-data-python/
