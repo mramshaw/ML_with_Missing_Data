@@ -8,6 +8,18 @@ How to handle missing or incomplete data
 
 One subject that often crops up is how to handle missing or incomplete data.
 
+This is a long-standing issue. If a sensitive or troublesome field is left as
+optional, it will tend to be either: left blank, or else populated with values
+such as "N/A" (meaning possibly "Not Applicable" or "Not Available"). So, using
+SICs (three-digit Sales Industry Codes) as an example, if this field is made
+mandatory - and validated for being numeric - the easy options will tend to be
+either "000" or "999". And neither of these values make for good data analysis.
+
+[The essential problem is that data entry personnel generally lack both
+ the training and the data to correctly determine the missing fields.
+ Plus they are generally paid by volume, so it is not really in their
+ best interests to spend a lot of time on their data-entry problems.]
+
 I decided to try this tutorial to get some background on the issue. We will:
 
 1. Describe the data
@@ -73,9 +85,11 @@ The first 20 observations
 ```
 
 Examining the first 20 observations, we can see zeroes
-in a number of columns. It is only reasonable that there
-should be zeroes in the first and last columns. So we
-will check for zeroes in all of the other columns:
+(but no troublesome "99" or "999" values - perhaps medical
+personnel are closer to the data) in a number of columns.
+It is only reasonable that there should be zeroes in the
+first and last columns. So we will check for zeroes in all
+of the other columns:
 
 ```bash
 Number of zero values
@@ -175,6 +189,10 @@ max    199.000000  122.000000   99.000000  846.000000   67.100000
 
 ...
 ```
+
+Note that the counts for our troublesome columns have changed as the
+(probably) missing fields are ignored - plus the means and standard
+deviations have changed.
 
 Lets fill in the missing values with the average (mean) value for that feature.
 
