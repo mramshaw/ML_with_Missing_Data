@@ -190,8 +190,10 @@ max    199.000000  122.000000   99.000000  846.000000   67.100000
 $
 ```
 
-The means for columns 3 and 4 are different, but otherwise it's mainly the
- distributions that have shifted (as the zero values have been adjusted):
+The means for columns 3 and 4 are different (in both of these columns
+zero was actually the __mode__ - or most common value), but otherwise
+it's mainly the distributions that have shifted as the zero values
+have been adjusted:
 
 ![Column 1](images/Column_1.png)
 
@@ -217,7 +219,16 @@ mean
 
     http://pandas.pydata.org/pandas-docs/stable/generated/pandas.DataFrame.mean.html
 
-[Note that the default value for __skipna__ is ___True___.]
+[Note that the default value for __skipna__ is ___True___, which means invalid data
+ will be ignored when calculating the column mean.]
+
+missing data with `pandas`:
+
+    http://pandas.pydata.org/pandas-docs/stable/missing_data.html
+
+missing data with `sklearn`:
+
+    http://scikit-learn.org/stable/modules/impute.html#impute
 
 ## To Do
 

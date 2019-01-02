@@ -65,6 +65,6 @@ print(fixed_dataset[[1,2,3,4,5]].describe())
 
 for i in range(1, 6):
     sb.distplot(dataset[[i]], hist=False)
-    fig = sb.distplot(fixed_dataset[[i]], hist=False)
+    sb.distplot(fixed_dataset[[i]], hist=False)
     plt.suptitle('Column ' + str(i))
     plt.show()
