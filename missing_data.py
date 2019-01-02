@@ -21,6 +21,12 @@ print("-------------------------")
 print(dataset.head(20))
 print
 
+# count the number of zero values - where zero is an anomaly
+print("Number of zero values")
+print("---------------------")
+print((dataset[[1,2,3,4,5,6,7]] == 0).sum())
+print
+
 # count the number of NaN values in each column
 print("Number of missing fields (original)")
 print("-----------------------------------")

@@ -72,7 +72,30 @@ The first 20 observations
 ...
 ```
 
-Check for missing values:
+Examining the first 20 observations, we can see zeroes
+in a number of columns. It is only reasonable that there
+should be zeroes in the first and last columns. So we
+will check for zeroes in all of the other columns:
+
+```bash
+Number of zero values
+---------------------
+1      5
+2     35
+3    227
+4    374
+5     11
+6      0
+7      0
+dtype: int64
+
+...
+```
+
+It looks like the only problems areas are columns 1,
+2, 3, 4 and 5.
+
+Check for missing values before any data munging:
 
 ```bash
 Number of missing fields (original)
@@ -113,7 +136,8 @@ max      2.420000   81.000000    1.000000
 ...
 ```
 
-Now check for zero (missing) values:
+Now we replace our troublesome zero values with __NaN__ and
+check again for zero (missing) values:
 
 ```bash
 Number of missing fields (zero fields flagged as NaN)
@@ -132,7 +156,7 @@ dtype: int64
 ...
 ```
 
-It looks like columns 1, 2, 3, 4 and 5 have missing values.
+And columns 1, 2, 3, 4 and 5 have missing values.
 
 Lets get the stats for the columns we will be filling:
 
