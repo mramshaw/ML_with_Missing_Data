@@ -8,18 +8,6 @@ How to handle missing or incomplete data
 
 One subject that often crops up is how to handle missing or incomplete data.
 
-This is a long-standing issue. If a sensitive or troublesome field is left as
-optional, it will tend to be either: left blank, or else populated with values
-such as "N/A" (meaning possibly "Not Applicable" or "Not Available"). So, using
-SICs (three-digit Sales Industry Codes) as an example, if this field is made
-mandatory - and validated for being numeric - the easy options will tend to be
-either "000" or "999". And neither of these values make for good data analysis.
-
-[The essential problem is that data entry personnel generally lack both
- the training and the data to correctly determine the missing fields.
- Plus they are generally paid by volume, so it is not really in their
- best interests to spend a lot of time on their data-entry problems.]
-
 I decided to try this tutorial to get some background on the issue. We will:
 
 1. Describe the data
@@ -29,6 +17,22 @@ I decided to try this tutorial to get some background on the issue. We will:
 
 Following on from my [ML with SciPy](http://github.com/mramshaw/ML_with_SciPy)
 exercise, I make sure to carefully examine the structure of the data first!
+
+## Missing Data
+
+This is a long-standing issue. If a sensitive or troublesome field is left as
+optional, it will tend to be either: left blank, or else populated with values
+such as __N/A__ (meaning possibly "Not Applicable" or "Not Available"). So, using
+SICs (Sales Industry Codes - which are generally three digits) as an example,
+if this field is made mandatory - and validated for being numeric - the easy data
+entry options will tend to be either "000" or "999" (although other options for
+"unknown" Sales Industry Codes are of course possible). But none of these values
+make for good data analysis.
+
+[The essential problem is that data entry personnel generally lack both
+ the training and the data to correctly determine the missing fields.
+ Plus they are generally paid by volume, so it is not really in their
+ best interests to spend a lot of time on their data-entry problems.]
 
 ## Data
 
@@ -109,7 +113,10 @@ dtype: int64
 It looks like the only problems areas are columns 1,
 2, 3, 4 and 5.
 
-Check for missing values before any data munging:
+According to the tutorial, it is standard practice in Python (specifically Pandas,
+NumPy and Scikit-Learn) to mark missing values as NaN.
+
+Frstly, check for missing values before doing any data munging:
 
 ```bash
 Number of missing fields (original)
@@ -150,8 +157,10 @@ max      2.420000   81.000000    1.000000
 ...
 ```
 
-Now we replace our troublesome zero values with __NaN__ and
-check again for zero (missing) values:
+Now we will use the Pandas [replace](http://pandas.pydata.org/pandas-docs/stable/generated/pandas.DataFrame.replace.html)
+function to replace our troublesome zero values with __NaN__.
+
+And check again for zero (missing) values:
 
 ```bash
 Number of missing fields (zero fields flagged as NaN)
@@ -263,6 +272,13 @@ mean
 
 [Note that the default value for __skipna__ is ___True___, which means invalid data
  will be ignored when calculating the column mean.]
+
+replace
+
+    http://pandas.pydata.org/pandas-docs/stable/generated/pandas.DataFrame.replace.html
+
+[Note that the value to be replaced can also be specified by a regex.
+ Also that the default value for __inplace__ is ___False___.]
 
 missing data with `pandas`:
 
