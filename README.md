@@ -18,6 +18,24 @@ I decided to try this tutorial to get some background on the issue. We will:
 Following on from my [ML with SciPy](http://github.com/mramshaw/ML_with_SciPy)
 exercise, I make sure to carefully examine the structure of the data first!
 
+## Table of Contents
+
+The table of contents is as follows:
+
+* [Missing Data](#missing-data)
+* [Data](#data)
+* [Summarize the dataset](#summarize-the-dataset)
+* [Reference](#reference)
+    * [cross-val-score](#cross-val-score)
+    * [distplot](#distplot)
+    * [fillna](#fillna)
+    * [isnull](#isnull)
+    * [mean](#mean)
+    * [replace](#replace)
+    * [More on processing missing data](#more-on-processing-missing-data)
+* [To Do](#to-do)
+* [Credits](#credits)
+
 ## Missing Data
 
 This is a long-standing issue. If a sensitive or troublesome field is left as
@@ -84,8 +102,6 @@ The first 20 observations
 17   7  107  74   0    0  29.6  0.254  31  1
 18   1  103  30  38   83  43.3  0.183  33  0
 19   1  115  70  30   96  34.6  0.529  32  1
-
-...
 ```
 
 Examining the first 20 observations, we can see zeroes
@@ -106,8 +122,6 @@ Number of zero values
 6      0
 7      0
 dtype: int64
-
-...
 ```
 
 It looks like the only problems areas are columns 1,
@@ -153,12 +167,9 @@ min      0.078000   21.000000    0.000000
 50%      0.372500   29.000000    0.000000  
 75%      0.626250   41.000000    1.000000  
 max      2.420000   81.000000    1.000000  
-
-...
 ```
 
-Now we will use the Pandas [replace](http://pandas.pydata.org/pandas-docs/stable/generated/pandas.DataFrame.replace.html)
-function to replace our troublesome zero values with __NaN__.
+Now we will use the Pandas [replace](#replace) function to replace our troublesome zero values with __NaN__.
 
 And check again for zero (missing) values:
 
@@ -175,8 +186,6 @@ Number of missing fields (zero fields flagged as NaN)
 7      0
 8      0
 dtype: int64
-
-...
 ```
 
 And columns 1, 2, 3, 4 and 5 have missing values.
@@ -195,8 +204,6 @@ min     44.000000   24.000000    7.000000   14.000000   18.200000
 50%    117.000000   72.000000   29.000000  125.000000   32.300000
 75%    141.000000   80.000000   36.000000  190.000000   36.600000
 max    199.000000  122.000000   99.000000  846.000000   67.100000
-
-...
 ```
 
 Note that the counts for our troublesome columns have changed as the
@@ -220,8 +227,6 @@ Number of missing fields (post-fill)
 7    0
 8    0
 dtype: int64
-
-...
 ```
 
 Now lets get the stats for the columns we filled-in:
@@ -238,7 +243,6 @@ min     44.000000   24.000000    7.000000   14.000000   18.200000
 50%    117.000000   72.000000   23.000000   79.799479   32.000000
 75%    140.250000   80.000000   32.000000  127.250000   36.600000
 max    199.000000  122.000000   99.000000  846.000000   67.100000
-$
 ```
 
 The means for columns 3 and 4 are different (in both of these columns
@@ -258,27 +262,41 @@ have been adjusted:
 
 ## Reference
 
-distplot
+Various useful links (and comments) are listed below.
+
+#### cross_val_score
+
+    https://scikit-learn.org/stable/modules/generated/sklearn.model_selection.cross_val_score.html
+
+#### distplot
 
     http://seaborn.pydata.org/generated/seaborn.distplot.html
 
-fillna
+#### fillna
 
     http://pandas.pydata.org/pandas-docs/stable/generated/pandas.DataFrame.fillna.html
 
-mean
+#### isnull
+
+    http://pandas.pydata.org/pandas-docs/stable/generated/pandas.isnull.html
+
+[Detects missing values - such as `NaN` in numeric arrays, `None` or `NaN` in object arrays, `NaT` in datetimelike.]
+
+#### mean
 
     http://pandas.pydata.org/pandas-docs/stable/generated/pandas.DataFrame.mean.html
 
 [Note that the default value for __skipna__ is ___True___, which means invalid data
  will be ignored when calculating the column mean.]
 
-replace
+### replace
 
     http://pandas.pydata.org/pandas-docs/stable/generated/pandas.DataFrame.replace.html
 
 [Note that the value to be replaced can also be specified by a regex.
  Also that the default value for __inplace__ is ___False___.]
+
+#### More on processing missing data
 
 missing data with `pandas`:
 
