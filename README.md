@@ -26,13 +26,13 @@ The table of contents is as follows:
 * [Data](#data)
 * [Summarize the dataset](#summarize-the-dataset)
 * [Reference](#reference)
-    * [cross-val-score](#cross-val-score)
+    * [cross_val_score](#cross_val_score)
     * [distplot](#distplot)
     * [fillna](#fillna)
     * [isnull](#isnull)
     * [mean](#mean)
     * [replace](#replace)
-    * [More on processing missing data](#more-on-processing-missing-data)
+* [More on processing missing data](#more-on-processing-missing-data)
 * [To Do](#to-do)
 * [Credits](#credits)
 
@@ -56,7 +56,7 @@ make for good data analysis.
 
 We will use the [Pima Indians Diabetes dataset](http://archive.ics.uci.edu/ml/datasets/Pima+Indians+Diabetes).
 
-However, as it no longer seems to be available, we will use the author's
+As it no longer seems to be available, we will use the tutorial author's
 [version](http://raw.githubusercontent.com/jbrownlee/Datasets/master/pima-indians-diabetes.data.csv).
 
 This data is known to have missing values. It consists of:
@@ -130,7 +130,8 @@ It looks like the only problems areas are columns 1,
 According to the tutorial, it is standard practice in Python (specifically Pandas,
 NumPy and Scikit-Learn) to mark missing values as NaN.
 
-Frstly, check for missing values before doing any data munging:
+Frstly, check for missing values using the Pandas [isnull](#isnull) function before
+doing any data munging:
 
 ```bash
 Number of missing fields (original)
@@ -280,23 +281,23 @@ Various useful links (and comments) are listed below.
 
     http://pandas.pydata.org/pandas-docs/stable/generated/pandas.isnull.html
 
-[Detects missing values - such as `NaN` in numeric arrays, `None` or `NaN` in object arrays, `NaT` in datetimelike.]
+Detects missing values - such as `NaN` in numeric arrays, `None` or `NaN` in object arrays, `NaT` in datetimelike.
 
 #### mean
 
     http://pandas.pydata.org/pandas-docs/stable/generated/pandas.DataFrame.mean.html
 
-[Note that the default value for __skipna__ is ___True___, which means invalid data
- will be ignored when calculating the column mean.]
+Note that the default value for __skipna__ is ___True___, which means invalid data
+will be ignored when calculating the column mean.
 
-### replace
+#### replace
 
     http://pandas.pydata.org/pandas-docs/stable/generated/pandas.DataFrame.replace.html
 
-[Note that the value to be replaced can also be specified by a regex.
- Also that the default value for __inplace__ is ___False___.]
+Note that the value to be replaced can also be specified by a regex.
+Also that the default value for __inplace__ is ___False___.
 
-#### More on processing missing data
+## More on processing missing data
 
 missing data with `pandas`:
 
