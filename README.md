@@ -31,6 +31,8 @@ The table of contents is as follows:
     * [fillna](#fillna)
     * [isnull](#isnull)
     * [mean](#mean)
+    * [median](#median)
+    * [mode](#mode)
     * [replace](#replace)
 * [More on processing missing data](#more-on-processing-missing-data)
 * [To Do](#to-do)
@@ -130,7 +132,7 @@ It looks like the only problems areas are columns 1,
 According to the tutorial, it is standard practice in Python (specifically Pandas,
 NumPy and Scikit-Learn) to mark missing values as NaN.
 
-Frstly, check for missing values using the Pandas [isnull](#isnull) function before
+Firstly, check for missing values using the Pandas [isnull](#isnull) function before
 doing any data munging:
 
 ```bash
@@ -273,9 +275,15 @@ Various useful links (and comments) are listed below.
 
     http://seaborn.pydata.org/generated/seaborn.distplot.html
 
+Will throw a `ValueError` for missing data:
+
+    ValueError: array must not contain infs or NaNs
+
 #### fillna
 
     http://pandas.pydata.org/pandas-docs/stable/generated/pandas.DataFrame.fillna.html
+
+Fill in NA / NaN values.
 
 #### isnull
 
@@ -289,6 +297,20 @@ Detects missing values - such as `NaN` in numeric arrays, `None` or `NaN` in obj
 
 Note that the default value for __skipna__ is ___True___, which means invalid data
 will be ignored when calculating the column mean.
+
+#### median
+
+    http://pandas.pydata.org/pandas-docs/stable/generated/pandas.DataFrame.median.html
+
+Note that the default value for __skipna__ is ___True___, which means invalid data
+will be ignored when calculating the column median.
+
+#### mode
+
+    http://pandas.pydata.org/pandas-docs/stable/generated/pandas.DataFrame.mode.html
+
+Note that multiple values may be returned for the selected axis.
+Also that the default value for __numeric\_only__ is ___False___.
 
 #### replace
 
@@ -310,6 +332,9 @@ missing data with `sklearn`:
 ## To Do
 
 - [x] Add a Snyk.io vulnerability scan badge
+- [x] Graph before and after (mean, median and mode) values
+- [ ] Generate a [Monte Carlo](http://en.wikipedia.org/wiki/Monte_Carlo_method) style missing-data dataset
+      and evaluate how it performs (in comparison to its non-missing-data original)
 - [ ] Finish tutorial
 
 ## Credits

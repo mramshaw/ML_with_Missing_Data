@@ -27,7 +27,7 @@ print("---------------------")
 print((dataset[[1,2,3,4,5,6,7]] == 0).sum())
 print
 
-# count the number of NaN values in each column
+# count the number of NaN values (using isnull) in each column
 print("Number of missing fields (original)")
 print("-----------------------------------")
 print(dataset.isnull().sum())
@@ -39,38 +39,56 @@ print("---------------------")
 print(dataset.describe())
 print
 
-fixed_dataset = dataset.copy()
+# Make a copy of the dataset so we can compare original & replaced
+replaced_dataset = dataset.copy()
 
 # mark zero values as NaN (missing)
-fixed_dataset[[1,2,3,4,5]] = fixed_dataset[[1,2,3,4,5]].replace(0, numpy.NaN)
+replaced_dataset[[1,2,3,4,5]] = replaced_dataset[[1,2,3,4,5]].replace(0, numpy.NaN)
 
 print("Number of missing fields (zero fields flagged as NaN)")
 print("-----------------------------------------------------")
-print(fixed_dataset.isnull().sum())
+print(replaced_dataset.isnull().sum())
 print
 
 # Show the stats of the dataset
 print("Statistics (pre-fill)")
 print("---------------------")
-print(fixed_dataset[[1,2,3,4,5]].describe())
+print(replaced_dataset[[1,2,3,4,5]].describe())
 print
 
+# Make copies of the dataset so we can compare them
+mean_dataset = replaced_dataset.copy()
+mode_dataset = replaced_dataset.copy()
+median_dataset = replaced_dataset.copy()
+
 # fill missing values with mean column values
-fixed_dataset.fillna(value=dataset.mean(), inplace=True)
+mean_dataset.fillna(value=replaced_dataset.mean(), inplace=True)
 
 # count the number of NaN values in each column
 print("Number of missing fields (post-fill)")
 print("------------------------------------")
-print(fixed_dataset.isnull().sum())
+print(mean_dataset.isnull().sum())
 print
 
 # Show the stats of the dataset
 print("Statistics (post-fill)")
 print("----------------------")
-print(fixed_dataset[[1,2,3,4,5]].describe())
+print(mean_dataset[[1,2,3,4,5]].describe())
+print
 
+# fill missing values with column mode value
+mode_dataset.fillna(value=replaced_dataset.mode(numeric_only=True).iloc[0], inplace=True)
+
+# fill missing values with column median value
+median_dataset.fillna(value=replaced_dataset.median(), inplace=True)
+
+# Use Seaborn to plot before & after graphs for columns 1 - 5
 for i in range(1, 6):
-    sb.distplot(dataset[[i]], hist=False)
-    sb.distplot(fixed_dataset[[i]], hist=False)
+    sb.distplot(dataset[[i]], hist=False, label='Original')
+    # Cannot plot datasets with NaN values
+    #sb.distplot(replaced_dataset[[i]], hist=False, label='Replaced')
+    sb.distplot(mode_dataset[[i]], hist=False, label='Mode')
+    sb.distplot(median_dataset[[i]], hist=False, label='Median')
+    sb.distplot(mean_dataset[[i]], hist=False, label='Mean')
     plt.suptitle('Column ' + str(i))
     plt.show()
