@@ -263,6 +263,9 @@ have been adjusted:
 
 ![Column 5](images/Column_5.png)
 
+[Column 5 only had 11 missing values. As it is fairly normally-distributed,
+ the mode, median and mean distributions seem to be almost identical.]
+
 ## Reference
 
 Various useful links (and comments) are listed below.
@@ -270,6 +273,10 @@ Various useful links (and comments) are listed below.
 #### cross_val_score
 
     https://scikit-learn.org/stable/modules/generated/sklearn.model_selection.cross_val_score.html
+
+Will throw a `ValueError` for missing data:
+
+    ValueError: Input contains NaN, infinity or a value too large for dtype('float64').
 
 #### distplot
 
