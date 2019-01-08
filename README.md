@@ -8,7 +8,8 @@ How to handle missing or incomplete data
 
 One subject that often crops up is how to handle missing or incomplete data.
 
-I decided to try this tutorial to get some background on the issue. We will:
+I decided to try this tutorial to get some background on the issue. The
+general approach will be as follows:
 
 1. Describe the data
 2. Check for missing values
@@ -28,6 +29,7 @@ The table of contents is as follows:
 * [Reference](#reference)
     * [cross_val_score](#cross_val_score)
     * [distplot](#distplot)
+    * [dropna](#dropna)
     * [fillna](#fillna)
     * [isnull](#isnull)
     * [mean](#mean)
@@ -266,6 +268,65 @@ have been adjusted:
 [Column 5 only had 11 missing values. As it is fairly normally-distributed,
  the mode, median and mean distributions seem to be almost identical.]
 
+Note that we cannot use a dataset with NaN values for k-fold cross validation:
+
+```bash
+Accuracy (with NaN values)
+--------------------------
+/home/owner/.local/lib/python2.7/site-packages/sklearn/model_selection/_validation.py:542: FutureWarning: From version 0.22, errors during fit will result in a cross validation score of NaN by default. Use error_score='raise' if you want an exception raised or error_score=np.nan to adopt the behavior from version 0.22.
+  FutureWarning)
+
+Input contains NaN, infinity or a value too large for dtype('float64').
+```
+
+[Throws a __ValueException__, the value of which is shown.]
+
+Now we will use the Pandas [dropna](#dropna) function to drop any entries that contain __NaN__ values.
+
+```bash
+Rows, columns (NaN values dropped) = (392, 9)
+
+Statistics (NaN values dropped)
+-------------------------------
+                1           2           3           4           5
+count  392.000000  392.000000  392.000000  392.000000  392.000000
+mean   122.627551   70.663265   29.145408  156.056122   33.086224
+std     30.860781   12.496092   10.516424  118.841690    7.027659
+min     56.000000   24.000000    7.000000   14.000000   18.200000
+25%     99.000000   62.000000   21.000000   76.750000   28.400000
+50%    119.000000   70.000000   29.000000  125.500000   33.200000
+75%    143.000000   78.000000   37.000000  190.000000   37.100000
+max    198.000000  110.000000   63.000000  846.000000   67.100000
+```
+
+And almost half of our entries have now been dropped.
+
+Let's compare our __k-fold cross validation__ with dropped and filled values:
+
+```bash
+Accuracy (with NaN values dropped)
+----------------------------------
+0.78582892934
+
+Accuracy (with NaN values filled)
+---------------------------------
+0.766927083333
+```
+
+[These are exactly the same as the tutorial's published values.]
+
+And finally let's use `seaborn` to graph our original values versus dropped values versus filled values:
+
+![Column 1 dropped](images/Column_1_dropped.png)
+
+![Column 2 dropped](images/Column_2_dropped.png)
+
+![Column 3 dropped](images/Column_3_dropped.png)
+
+![Column 4 dropped](images/Column_4_dropped.png)
+
+![Column 5 dropped](images/Column_5_dropped.png)
+
 ## Reference
 
 Various useful links (and comments) are listed below.
@@ -285,6 +346,12 @@ Will throw a `ValueError` for missing data:
 Will throw a `ValueError` for missing data:
 
     ValueError: array must not contain infs or NaNs
+
+#### dropna
+
+    http://pandas.pydata.org/pandas-docs/stable/generated/pandas.DataFrame.dropna.html
+
+Default behavior is to drop entries where ___Any___ field is NaN.
 
 #### fillna
 
@@ -340,6 +407,7 @@ missing data with `sklearn`:
 
 - [x] Add a Snyk.io vulnerability scan badge
 - [x] Graph before and after (mean, median and mode) values
+- [ ] Fix annoying `sklearn` __FutureWarning__ warnings
 - [ ] Generate a [Monte Carlo](http://en.wikipedia.org/wiki/Monte_Carlo_method) style missing-data dataset
       and evaluate how it performs (in comparison to its non-missing-data original)
 - [ ] Finish tutorial
