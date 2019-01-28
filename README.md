@@ -407,6 +407,7 @@ missing data with `sklearn`:
 
 - [x] Add a Snyk.io vulnerability scan badge
 - [x] Graph before and after (mean, median and mode) values
+- [x] Conform code to `pylint`, `pycodestyle` and `pydocstyle` standards
 - [ ] Fix annoying `sklearn` __FutureWarning__ warnings
 - [ ] Generate a [Monte Carlo](http://en.wikipedia.org/wiki/Monte_Carlo_method) style missing-data dataset
       and evaluate how it performs (in comparison to its non-missing-data original)

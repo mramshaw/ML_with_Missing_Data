@@ -1,4 +1,7 @@
 #!/usr/bin/env python
+
+# pylint: disable=C0103,C0325,W0621
+
 """Quick missing/incomplete data exercise with NumPy and Pandas."""
 
 import matplotlib.pyplot as plt
@@ -15,11 +18,11 @@ from sklearn.model_selection import cross_val_score
 
 
 def k_fold_cross_validation(dataset, title):
-
+    """Define the common code for k-fold cross-validation."""
     # split dataset into inputs and outputs
     values = dataset.values
-    X = values[:,0:8]
-    y = values[:,8]
+    X = values[:, 0:8]
+    y = values[:, 8]
 
     # evaluate an LDA model on the dataset using k-fold cross validation
     model = LinearDiscriminantAnalysis()
@@ -50,7 +53,7 @@ if __name__ == '__main__':
     # count the number of zero values - where zero is an anomaly
     print("Number of zero values")
     print("---------------------")
-    print((dataset[[1,2,3,4,5,6,7]] == 0).sum())
+    print((dataset[[1, 2, 3, 4, 5, 6, 7]] == 0).sum())
     print
 
     # count the number of NaN values (using isnull) in each column
@@ -69,7 +72,8 @@ if __name__ == '__main__':
     replaced_dataset = dataset.copy()
 
     # mark zero values as NaN (missing)
-    replaced_dataset[[1,2,3,4,5]] = replaced_dataset[[1,2,3,4,5]].replace(0, numpy.NaN)
+    replaced_dataset[[1, 2, 3, 4, 5]] = \
+        replaced_dataset[[1, 2, 3, 4, 5]].replace(0, numpy.NaN)
 
     print("Number of missing fields (zero fields flagged as NaN)")
     print("-----------------------------------------------------")
@@ -79,7 +83,7 @@ if __name__ == '__main__':
     # Show the stats of the dataset
     print("Statistics (pre-fill)")
     print("---------------------")
-    print(replaced_dataset[[1,2,3,4,5]].describe())
+    print(replaced_dataset[[1, 2, 3, 4, 5]].describe())
     print
 
     # Make copies of the dataset so we can compare them
@@ -99,11 +103,12 @@ if __name__ == '__main__':
     # Show the stats of the dataset
     print("Statistics (post-fill)")
     print("----------------------")
-    print(mean_dataset[[1,2,3,4,5]].describe())
+    print(mean_dataset[[1, 2, 3, 4, 5]].describe())
     print
 
     # fill missing values with column mode value
-    mode_dataset.fillna(value=replaced_dataset.mode(numeric_only=True).iloc[0], inplace=True)
+    mode_dataset.fillna(value=replaced_dataset.mode(numeric_only=True).iloc[0],
+                        inplace=True)
 
     # fill missing values with column median value
     median_dataset.fillna(value=replaced_dataset.median(), inplace=True)
@@ -112,7 +117,6 @@ if __name__ == '__main__':
     for i in range(1, 6):
         sb.distplot(dataset[[i]], hist=False, label='Original')
         # Cannot plot datasets with NaN values
-        #sb.distplot(replaced_dataset[[i]], hist=False, label='Replaced')
         sb.distplot(mode_dataset[[i]], hist=False, label='Mode')
         sb.distplot(median_dataset[[i]], hist=False, label='Median')
         sb.distplot(mean_dataset[[i]], hist=False, label='Mean')
@@ -121,8 +125,8 @@ if __name__ == '__main__':
 
     # split dataset into inputs and outputs
     values = replaced_dataset.values
-    X = values[:,0:8]
-    y = values[:,8]
+    X = values[:, 0:8]
+    y = values[:, 8]
 
     # evaluate an LDA model on the dataset using k-fold cross validation
     # [We know it is going to fail, so wrap it in a try/catch block.]
@@ -151,10 +155,11 @@ if __name__ == '__main__':
 
     # Show the stats of the dataset
     print("Statistics (NaN values dropped)")
-    print(dropped_dataset[[1,2,3,4,5]].describe())
+    print(dropped_dataset[[1, 2, 3, 4, 5]].describe())
     print
 
-    k_fold_cross_validation(dropped_dataset, "Accuracy (with NaN values dropped)")
+    k_fold_cross_validation(dropped_dataset,
+                            "Accuracy (with NaN values dropped)")
     print
 
     # -------------------------------------
